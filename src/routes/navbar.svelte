@@ -2,19 +2,26 @@
     import { onMount } from 'svelte';    
     
     // theme
-    onMount(() => {
+    onMount(() => {        
         // toggle dark/light mode
         const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
         const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');        
         
+        console.log("get color-theme");        
+        console.log(localStorage.getItem('color-theme'));
+        
         // Change the icons inside the button based on previous settings
         if (themeToggleLightIcon && themeToggleDarkIcon) {
-            if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) 
+            && window.matchMedia('(prefers-color-scheme: dark)').matches)) {                
+                document.documentElement.classList.add('dark');
+                document.documentElement.classList.remove('light');
+                localStorage.setItem('color-theme', 'dark');
                 themeToggleLightIcon.classList.remove('hidden');
             } else {
                 themeToggleDarkIcon.classList.remove('hidden');
             }                        
-        }                 
+        }        
     });
     
     $: showSideBar = true;
