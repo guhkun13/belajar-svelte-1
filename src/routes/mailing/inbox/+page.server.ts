@@ -1,3 +1,40 @@
+// export function load({fetch}) {
+//     // cara 1: use provided data 
+//     // const messsages = dataMessages
+    
+//     // cara 2: call API
+//     // var url = 'https://64bc7b987b33a35a4447379d.mockapi.io/andieni/messsages'
+    
+//     // const res = await fetch(url);
+//     // const messages:Messages = await res.json();
+    
+//     // var result = {
+//     //     'messages' : messages
+//     // }
+    
+// }
+
+export async function load({ fetch, url }) {    
+    console.log("load here");
+    console.log(url);    
+    
+    // cara 3: more dynamic API
+    var baseUrl = "https://dummyjson.com/users";
+    let filter="?limit=10";
+    if (url.search) {
+        filter = url.search
+    }
+    var destUrl = baseUrl+filter
+    
+    // call API    
+    const res = await fetch(destUrl);
+    const result : Root = await res.json();    
+    
+    return result
+}
+
+// DTO below
+// TODO : separate files between DTO files and fetch file
 // use https://transform.tools/json-to-typescript
 export interface Root {
     users: User[]
@@ -80,32 +117,4 @@ export interface Address2 {
 export interface Coordinates2 {
     lat: number
     lng: number
-}
-
-
-export async function load({ fetch, params }) {
-    
-    // cara 1: use provided data 
-    // const messsages = dataMessages
-    
-    // cara 2: call API
-    // var url = 'https://64bc7b987b33a35a4447379d.mockapi.io/andieni/messsages'
-    
-    // const res = await fetch(url);
-    // const messages:Messages = await res.json();
-    
-    // var result = {
-    //     'messages' : messages
-    // }
-    
-    // cara 3: more dynamic API
-    var baseUrl = "https://dummyjson.com/users";    
-    var filter = "?limit=10";
-    var url = baseUrl+filter
-    
-    // call API    
-    const res = await fetch(url);
-    const result : Root = await res.json();    
-    
-    return result
 }

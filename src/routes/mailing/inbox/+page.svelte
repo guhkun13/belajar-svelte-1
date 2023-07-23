@@ -1,24 +1,63 @@
 <script lang="ts">	
+    import { page } from '$app/stores';    
     import type { PageServerData } from "./$types";
     
-    export let data : PageServerData;
+    console.log("page here");
     
-    let users = data.users;    
-    let total = data.total;
-    let skip = data.skip;
-    let limit = data.limit;
+    let currentUrl = $page.url;
+    console.log(currentUrl);
     
-    if (skip == 0) {
-        skip = 1;
-    }
-    let startIndex = skip;
-    let endIndex = limit;
+    export let data : PageServerData;    
+    let skip : number;
+    let limit : number;
+    
+    $: users = data.users;
+    // $: total = currentUrl.searchParams.get("total") ? Number(currentUrl.searchParams.get("total")) : data.total;
+    // $: skip = currentUrl.searchParams.get("skip") ? Number(currentUrl.searchParams.get("skip")) : data.skip;
+    // $: limit = currentUrl.searchParams.get("limit") ? Number(currentUrl.searchParams.get("limit")) : data.limit;
+    $: total = data.total;
+    $: skip = data.skip;
+    $: limit = data.limit;
+    console.log(total, skip, limit);
+    
+    $: startIndex = skip;
+    $: endIndex = skip + limit;
+    if (skip == 0 ) {
+        startIndex = 1
+    }    
+    
+    $: prevUrl = currentUrl.pathname + "?limit=" + limit + "&skip=" + (skip-limit)
+    $: nextUrl = currentUrl.pathname + "?limit=" + limit + "&skip=" + (skip+limit)
+    
+    const pointerEnable = "cursor-pointer";
+    const pointerDisable = "cursor-not-allowed";
+    
+    let prevUrlClass = pointerEnable;
+    let nextUrlClass = pointerEnable;
+    
+    // function checkNavUrl(){
+    //     console.log("----------------------------");        
+    //     console.log("before:",startIndex, endIndex);                
+    //     console.log(prevUrl, prevUrlClass);            
+    //     console.log(nextUrl, nextUrlClass);            
+        
+    //     if (startIndex <= 1) {
+    //         prevUrl = "#";
+    //         prevUrlClass = pointerDisable;            
+    //     } else if (endIndex >= total) {
+    //         nextUrl = "#";
+    //         nextUrlClass =  pointerDisable;
+    //     } else {
+    //         prevUrlClass =  pointerEnable;
+    //         nextUrlClass =  pointerEnable;
+    //     }
+    //     console.log("----------------------------");        
+    //     console.log("after",startIndex, endIndex);
+    //     console.log(prevUrl, prevUrlClass);            
+    //     console.log(nextUrl, nextUrlClass);            
+    // }
     
     function readEmail() {
-        location.href = "/mailing/read"
-    }
-    
-    function checkBoxNotReadEmail(){
         location.href = "/mailing/read"
     }
 </script>
@@ -51,13 +90,13 @@
             </div>
         </div>
         <div class="items-center hidden space-x-0 space-y-3 sm:flex sm:space-y-0 sm:space-x-3">
-            <a href="#" class="inline-flex justify-center p-1 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+            <!-- <a href="#" class="inline-flex justify-center p-1 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
                 <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
-            </a>
-            <a href="#" class="inline-flex justify-center p-1 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+            </a> -->
+            <a href="{prevUrl}"  class="{prevUrlClass} inline-flex justify-center p-1 text-gray-500 rounded hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
                 <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
             </a>
-            <a href="#" class="inline-flex justify-center p-1 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+            <a href="{nextUrl}" class="{nextUrlClass} inline-flex justify-center p-1 text-gray-500 rounded hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
                 <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
             </a>
             <span class="font-normal text-gray-500 sm:text-xs md:text-sm dark:text-gray-400">Show <span class="font-semibold text-gray-900 dark:text-white">{startIndex}-{endIndex}</span> of <span class="font-semibold text-gray-900 dark:text-white">{total}</span></span>
@@ -75,8 +114,8 @@
                                 <td class="w-4 p-4">
                                     <div class="inline-flex items-center space-x-4">
                                         <div>
-                                            <input id="checkbox-" aria-describedby="checkbox-1" type="checkbox" class="w-4 h-4 border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:focus:ring-primary-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600" on:click|stopPropagation>
-                                            <label for="checkbox-" class="sr-only">checkbox</label>
+                                            <input id="checkbox-{item.id}" aria-describedby="checkbox-1" type="checkbox" class="w-4 h-4 border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:focus:ring-primary-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600" on:click|stopPropagation>
+                                            <label for="checkbox-{item.id}" class="sr-only">checkbox</label>
                                         </div>
                                         <svg on:click|stopPropagation class="w-6 h-6 text-gray-500 hover:text-yellow-300 dark:text-gray-400 dark:hover:text-yellow-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path></svg>
                                     </div>
