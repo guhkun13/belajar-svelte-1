@@ -24,18 +24,9 @@
     
     function readEmail() {
         location.href = "/mailing/read"
-    }
-    
-    $: idx = 1;
-    function addCounter(){
-        idx = idx + 1;
-        console.log("idx", idx);        
-    }
+    }    
 </script>
 
-<p>
-    <button on:click={addCounter} class="p-4 bg-white"> CLICK ME : {idx} </button>
-</p>
 <div class="p-4 bg-white block sm:flex items-center justify-between border-b border-gray-200 lg:mt-1.5 dark:bg-gray-800 dark:border-gray-700">
     <Compose/>
     <Navigation {currentUrl} {limit} {skip} {total} />
