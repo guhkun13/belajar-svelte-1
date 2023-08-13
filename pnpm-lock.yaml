@@ -8,12 +8,21 @@ dependencies:
   '@floating-ui/dom':
     specifier: ^1.4.5
     version: 1.4.5
+  '@prisma/client':
+    specifier: ^5.1.1
+    version: 5.1.1(prisma@5.1.1)
   flowbite:
     specifier: ^1.7.0
     version: 1.7.0
   flowbite-svelte:
     specifier: ^0.40.1
     version: 0.40.1(svelte@4.1.1)
+  pnpx:
+    specifier: ^0.0.1
+    version: 0.0.1
+  prisma:
+    specifier: ^5.1.1
+    version: 5.1.1
   tailwind-merge:
     specifier: ^1.14.0
     version: 1.14.0
@@ -437,6 +446,29 @@ packages:
 
   /@popperjs/core@2.11.8:
     resolution: {integrity: sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==}
+    dev: false
+
+  /@prisma/client@5.1.1(prisma@5.1.1):
+    resolution: {integrity: sha512-fxcCeK5pMQGcgCqCrWsi+I2rpIbk0rAhdrN+ke7f34tIrgPwA68ensrpin+9+fZvuV2OtzHmuipwduSY6HswdA==}
+    engines: {node: '>=16.13'}
+    requiresBuild: true
+    peerDependencies:
+      prisma: '*'
+    peerDependenciesMeta:
+      prisma:
+        optional: true
+    dependencies:
+      '@prisma/engines-version': 5.1.1-1.6a3747c37ff169c90047725a05a6ef02e32ac97e
+      prisma: 5.1.1
+    dev: false
+
+  /@prisma/engines-version@5.1.1-1.6a3747c37ff169c90047725a05a6ef02e32ac97e:
+    resolution: {integrity: sha512-owZqbY/wucbr65bXJ/ljrHPgQU5xXTSkmcE/JcbqE1kusuAXV/TLN3/exmz21SZ5rJ7WDkyk70J2G/n68iogbQ==}
+    dev: false
+
+  /@prisma/engines@5.1.1:
+    resolution: {integrity: sha512-NV/4nVNWFZSJCCIA3HIFJbbDKO/NARc9ej0tX5S9k2EVbkrFJC4Xt9b0u4rNZWL4V+F5LAjvta8vzEUw0rw+HA==}
+    requiresBuild: true
     dev: false
 
   /@sinclair/typebox@0.27.8:
@@ -1831,6 +1863,11 @@ packages:
     hasBin: true
     dev: true
 
+  /pnpx@0.0.1:
+    resolution: {integrity: sha512-mBRUYL3Stk3D9Lm2Bpk9hpCeo9X1QcFUTfwyBEjVDJpI/1/xOxruz5nHJuQLnaBWddAI+iNgo/2qY0qt0Nnf/w==}
+    hasBin: true
+    dev: false
+
   /postcss-import@15.1.0(postcss@8.4.27):
     resolution: {integrity: sha512-hpr+J05B2FVYUAXHeK1YyI267J/dDDhMU6B6civm8hSY1jYJnBXxzKDKDswzJmtLHryrjhnDjqqp/49t8FALew==}
     engines: {node: '>=14.0.0'}
@@ -1965,6 +2002,15 @@ packages:
       ansi-styles: 5.2.0
       react-is: 18.2.0
     dev: true
+
+  /prisma@5.1.1:
+    resolution: {integrity: sha512-WJFG/U7sMmcc6TjJTTifTfpI6Wjoh55xl4AzopVwAdyK68L9/ogNo8QQ2cxuUjJf/Wa82z/uhyh3wMzvRIBphg==}
+    engines: {node: '>=16.13'}
+    hasBin: true
+    requiresBuild: true
+    dependencies:
+      '@prisma/engines': 5.1.1
+    dev: false
 
   /punycode@2.3.0:
     resolution: {integrity: sha512-rRV+zQD8tVFys26lAGR9WUuS4iUAngJScM+ZRSKtvl5tKeZ2t5bvdNFdNHBW9FWR4guGHlgmsZ1G7BSm2wTbuA==}

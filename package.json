@@ -37,10 +37,16 @@
 		"vitest": "^0.32.2"
 	},
 	"type": "module",
+	"prisma": {
+		"seed": "pnpm vite-node prisma/seed.ts"
+	},
 	"dependencies": {
 		"@floating-ui/dom": "^1.4.5",
+		"@prisma/client": "^5.1.1",
 		"flowbite": "^1.7.0",
 		"flowbite-svelte": "^0.40.1",
+		"pnpx": "^0.0.1",
+		"prisma": "^5.1.1",
 		"tailwind-merge": "^1.14.0"
 	}
 }

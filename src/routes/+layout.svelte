@@ -1,12 +1,15 @@
 <script>	
 	import '../app.postcss';	
+	import { page } from '$app/stores';
 	
 	// import component
 	import Navbar from './navbar.svelte';
 	import Sidebar from './sidebar.svelte';
 	
 </script>
-
+<svelte:head>
+	<title>{$page.data.post?.title}</title>
+</svelte:head>
 
 <!-- {{ partial "navbar-dashboard" . }} -->
 <Navbar />
